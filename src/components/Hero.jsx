@@ -1,21 +1,41 @@
 import React from 'react';
+import ShapeImg from '../assets/shape.png';
 
 function Hero() {
   return (
-    <section className="bg-blue-600 text-white py-16">
-      <div className="container mx-auto px-4">
-        <h1 className="text-5xl font-bold mb-4">Join Our Student Community</h1>
-        <p className="text-lg mb-8">
-          Connect with other students, share your experiences, and get help with your studies.
-        </p>
-        <a
-          href="#"
-          className="bg-white text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition duration-500 ease-in-out"
+    <>
+      <div
+        className="hero min-h-screen bg-primary text-neutral"
+        style={{ position: 'relative' }}
+      >
+        <div className="hero-content text-center">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl font-bold max-w-3xl">
+              <span className="text-secondary">Connect</span> with your fellow{' '}
+              <span className="text-secondary">college mate</span> on this
+              platform
+            </h1>
+            <p className="py-12 max-w-2xl mx-auto text-center">
+              Join different channels and increase your networking in college.
+              Get updates about the events and other activities happening in
+              college. And joining the clubs is much easir with our application.
+            </p>
+            <button className="btn btn-secondary">Get Started</button>
+          </div>
+        </div>
+
+        <div
+          className="hero-image hidden md:block"
+          style={{
+            position: 'absolute',
+            bottom: '10%',
+            left: '0',
+          }}
         >
-          Join Now
-        </a>
+          <img src={ShapeImg} alt="Students" />
+        </div>
       </div>
-    </section>
+    </>
   );
 }
 

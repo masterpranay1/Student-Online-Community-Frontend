@@ -2,13 +2,13 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto px-4">
-        <p className="text-center text-gray-500">
-          &copy; 2023 Student Community. All rights reserved.
-        </p>
-      </div>
-    </footer>
+    <>
+      <footer className="footer footer-center py-8 px-4 text-lg bg-red-800 text-base-100">
+        <div>
+          <p>Copyright © 2023 - All right reserved by Student Online Community</p>
+        </div>
+      </footer>
+    </>
   );
 }
 
