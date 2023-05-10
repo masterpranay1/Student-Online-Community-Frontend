@@ -5,7 +5,7 @@ function Hero() {
   return (
     <>
       <div
-        className="hero bg-primary text-neutral"
+        className="hero bg-primary text-neutral min-h-[90vh]"
         style={{ position: 'relative' }}
       >
         <div className="hero-content text-center">
