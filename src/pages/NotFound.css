@@ -4,131 +4,8 @@
 			/* 1. BODY */
 /***********************************/
 
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-text-size-adjust: none;
-}
 
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
 
-body {
-  padding: 0;
-  margin: 0;
-  background: #181828;
-  font-size: 14px;
-  line-height: 1;
-}
-
-label {
-  cursor: pointer;
-}
-
-a {
-  margin: 0;
-  padding: 0;
-  vertical-align: baseline;
-  background: transparent;
-  text-decoration: none;
-  color: #000;
-}
-
-input,
-select,
-button,
-textarea {
-  margin: 0;
-  font-size: 100%;
-}
-
-html,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-font,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-input {
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-}
-
-.top-header:before {
-  background-image: url(https://1.bp.blogspot.com/-gxsOcYWghHA/Xp_izTh4sFI/AAAAAAAAU8s/y637Fwg99qAuzW9na_NT_uApny8Vce95gCEwYBhgL/s1600/header-footer-gradient-bg.png);
-}
-.top-header:before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 4px;
-  background-repeat: repeat-x;
-  background-size: contain;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0.5;
-}
 
 .starsec {
   content: " ";
@@ -311,18 +188,6 @@ input {
   }
 }
 
-button {
-  border: none;
-  padding: 0;
-  font-size: 0;
-  line-height: 0;
-  background: none;
-  cursor: pointer;
-}
-
-:focus {
-  outline: 0;
-}
 
 .clearfix:before,
 .clearfix:after {
@@ -356,6 +221,7 @@ button {
   height: 100%;
   text-align: center;
   margin-top: 70px;
+  
 }
 
 .error__overlay {
@@ -378,7 +244,8 @@ button {
 
 .error__message {
   text-align: center;
-  color: #181828;
+  color: #212121;
+  
 }
 
 .message__title {
@@ -399,6 +266,8 @@ button {
   padding: 0 60px;
   max-width: 680px;
   margin: auto;
+  color: #f1f5f8;
+  font-weight: 600;
 }
 
 .error__nav {
@@ -585,33 +454,48 @@ button {
 .in-cover .bulb {
   width: 50px;
   height: 50px;
-  background-color: #08fffa;
+  background-color: rgb(238, 82, 83);
   border-radius: 50%;
   position: absolute;
   left: 0px;
   right: 0px;
   bottom: -20px;
   margin: 0px auto;
-  -webkit-box-shadow: 0 0 15px 7px rgba(0, 255, 255, 0.8),
-    0 0 40px 25px rgba(0, 255, 255, 0.5),
-    -75px 0 30px 15px rgba(0, 255, 255, 0.2);
-  box-shadow: 0 0 25px 7px rgb(127 255 255 / 80%),
-    0 0 64px 47px rgba(0, 255, 255, 0.5), 0px 0 30px 15px rgba(0, 255, 255, 0.2);
+  -webkit-box-shadow: 0 0 15px 7px rgba(238, 82, 82, 0.792),
+    0 0 40px 25px rgba(238, 82, 82, 0.5),
+    -75px 0 30px 15px rgba(238, 100, 120, 0.5);
+  box-shadow: 0 0 25px 7px rgba(255, 231, 220, 0.8),
+    0 0 64px 47px rgba(255, 55, 0, 0.5), 0px 0 30px 15px #ff550033;
 }
 
-.light {
-  width: 1400px;
-  height: 0px;
-  border-bottom: 1980px solid rgb(44 255 255 / 24%);
-  border-left: 630px solid transparent;
-  border-right: 630px solid transparent;
-  position: absolute;
-  left: -550px;
-  right: 0px;
-  top: 270px;
-  margin: 0px auto;
-  z-index: 1;
-  border-radius: 90px 90px 0px 0px;
+@media screen and (min-width: 1600px) {
+  .light {
+    /* Make Light not go outside the body */
+    overflow: hidden;
+    width: 35rem;
+    border-bottom: 300vh solid #ee5252ba;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+  }
+
+}
+@media (max-width: 1599px) {
+  .light {
+    height: 0px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    right: 0px;
+    top: 270px;
+    margin: 0px auto;
+    z-index: 1;
+    border-radius: 90px 90px 0px 0px;
+    width: 100rem;
+    border-bottom: 2000px solid #ee5252d1;
+    border-left: 750px solid transparent;
+    border-right: 750px solid transparent;
+  }
+
 }
 /* 2.3. END Lamp */
 /***********************************
@@ -718,20 +602,21 @@ button {
   }
 }
 
-.container {
+.container-not-found {
   background-color: #f1f5f8;
   width: 100vw !important;
-  height: 100vh !important;
-  overflow: hidden;
-  /* max-width: 100% !important; */
-}
-
-.body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+  height: 80vh !important;
+  overflow: hidden !important;
 }
 
 .error {
-  margin-top: 0;
+  margin: 0 !important;
+}
+
+.light-container {
+  width: 100vw !important;
+  height: 80vh !important; 
+  /* z-index: -1; */
+  position: absolute;
+  overflow: hidden;
 }
