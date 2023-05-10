@@ -5,11 +5,11 @@ function Hero() {
   return (
     <>
       <div
-        className="hero min-h-screen bg-primary text-neutral"
+        className="hero bg-primary text-neutral"
         style={{ position: 'relative' }}
       >
         <div className="hero-content text-center">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl my-28">
             <h1 className="text-5xl font-bold max-w-3xl">
               <span className="text-secondary">Connect</span> with your fellow{' '}
               <span className="text-secondary">college mate</span> on this
@@ -28,7 +28,7 @@ function Hero() {
           className="hero-image hidden md:block"
           style={{
             position: 'absolute',
-            bottom: '10%',
+            bottom: '-1em',
             left: '-1.2%',
           }}
         >
