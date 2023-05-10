@@ -1,11 +1,57 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import LoginContext from '../contexts/LoginContext';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  let { setState } = useContext(LoginContext);
+  let { setState, setIsLogin } = useContext(LoginContext);
   useEffect(() => {
     setState('login');
   }, [setState]);
+
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = async (e) => {
+    e.preventDefault();
+    buttonRef.current.classList.add('loading');
+    const name = nameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (!name || !email || !password) {
+      return alert('Please enter all the fields');
+    }
+    const res = await fetch(
+      'https://student-online-community-backend-omega.vercel.app/api/users/register',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Access-Control-Allow-Origin': ''
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+        credentials: 'include',
+      }
+    );
+    const data = await res.json();
+    buttonRef.current.classList.remove('loading');
+    if (res.status == 201) {
+      alert('User registered successfully');
+      setIsLogin(true);
+      navigate('/channels');
+    } else {
+      alert(data.message);
+    }
+  }
+      
 
   return (
     <div className="hero min-h-screen bg-primary py-[2rem] pb-[4rem] text-neutral">
@@ -26,6 +72,7 @@ const Register = () => {
                 type="text"
                 placeholder="Elon Musk"
                 className="input input-bordered"
+                ref={nameRef}
               />
             </div>
             <div className="form-control">
@@ -36,6 +83,7 @@ const Register = () => {
                 type="text"
                 placeholder="Email"
                 className="input input-bordered"
+                ref={emailRef}
               />
             </div>
             <div className="form-control">
@@ -46,16 +94,12 @@ const Register = () => {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
+                ref={passwordRef}
               />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
             </div>
 
             <div className="form-control mt-6">
-              <button className="btn btn-secondary">Register</button>
+              <button className="btn btn-secondary" ref={buttonRef} onClick={handleButtonClick}>Register</button>
             </div>
           </div>
         </div>
