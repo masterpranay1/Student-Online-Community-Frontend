@@ -1,4 +1,13 @@
+import { useContext, useEffect } from "react"
+import LoginContext from "../contexts/LoginContext"
+
 const Login = ({ admin }) => {
+    let { setState } = useContext(LoginContext);
+    // setState('register')
+
+    useEffect(() => {
+        setState('register')
+    }, [setState])
     return (
         <div>
             {

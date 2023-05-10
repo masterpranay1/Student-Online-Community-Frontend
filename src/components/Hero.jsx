@@ -1,5 +1,6 @@
 import React from 'react';
 import ShapeImg from '../assets/shape.png';
+import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
@@ -20,7 +21,9 @@ function Hero() {
               Get updates about the events and other activities happening in
               college. And joining the clubs is much easir with our application.
             </p>
-            <button className="btn btn-secondary">Get Started</button>
+            <Link to="/auth/login">
+              <button className="btn btn-secondary">Get Started</button>
+            </Link>
           </div>
         </div>
 
