@@ -29,7 +29,7 @@ function Hero() {
           style={{
             position: 'absolute',
             bottom: '10%',
-            left: '0',
+            left: '-1.2%',
           }}
         >
           <img src={ShapeImg} alt="Students" />

@@ -8,7 +8,7 @@ function Features() {
     <div className='pb-16'>
       <h2 className='text-5xl m-16 font-bold text-center text-secondary'>Features</h2>
       <section className="features flex flex-col gap-8 min-h-screen justify-around items-center md:flex-row md:gap-2">
-        <div className="card h-fit w-96 bg-base-100 shadow-xl py-8 border">
+        <div className="card h-fit w-96 bg-base-100 shadow-xl py-8 pb-0 border">
           <figure>
             <img
               src={NetworkingImage}
@@ -18,11 +18,12 @@ function Features() {
           </figure>
           <div className="card-body">
             <h2 className="card-title">Networking</h2>
-            <p>Connect with student around the university and interact with each other different topics. Build connection and learn from others.</p>
+            <p>Connect with student around the university and interact with each other different topics. Build connection and learn from others. </p>
+            &nbsp;
           </div>
         </div>
 
-        <div className="card h-fit w-96 bg-base-100 shadow-xl py-8 border">
+        <div className="card h-fit w-96 bg-base-100 shadow-xl py-8 pb-0 border">
           <figure>
             <img
               src={ClubImage}
@@ -36,7 +37,7 @@ function Features() {
           </div>
         </div>
 
-        <div className="card h-fit w-96 bg-base-100 shadow-xl py-8 border">
+        <div className="card h-fit w-96 bg-base-100 shadow-xl py-8 pb-0 border">
           <figure>
             <img
               src={EventImage}
