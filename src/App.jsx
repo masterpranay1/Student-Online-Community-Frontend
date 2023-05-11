@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import LoginContext from './contexts/LoginContext';
 import ChannelContext from './contexts/ChannelContext';
 
@@ -36,6 +36,9 @@ function App() {
           />
           {/* <Route path="/createChannel" element={}/> */}
           <Route path="/channelDashboard/:channelId" element={<ChannelDashboard />} />
+          <Route path="/admin" element={<div>
+            <Link to="/auth/admin/login"/>
+          </div>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </LoginContext.Provider>
