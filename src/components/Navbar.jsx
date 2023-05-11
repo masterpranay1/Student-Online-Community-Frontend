@@ -54,6 +54,10 @@ const Navbar = () => {
           ) : (
             ''
           )}
+
+          <Link to="/admin" className="btn btn-secondary btn-outline">
+            Admin
+          </Link>
         </div>
       </div>
     </>
