@@ -6,7 +6,9 @@ import { useContext } from 'react';
 import LoginContext from '../contexts/LoginContext';
 
 const ChannelPage = () => {
-  const { isLogin } = useContext(LoginContext);
+  let { isLogin } = useContext(LoginContext);
+
+  isLogin = true;
   
   return (
     !isLogin ? 

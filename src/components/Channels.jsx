@@ -123,6 +123,7 @@ const Channels = () => {
     )
 
     const data = await response.json();
+    console.log(data);
     channelsId.sort()
     setChannelsId(data.channelsId);
   }, [])
@@ -170,6 +171,7 @@ const Channels = () => {
 
   const fetchIsInChannelList = useCallback(async (channelsId) => {
     setIsInChannelList([]);
+    console.log(channelsId);
     channelsId.forEach(async (channelId) => {
       const isInChannel = await isUserInChannel(channelId);
       console.log(isInChannel);
