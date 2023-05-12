@@ -57,7 +57,9 @@ function UserProfile() {
         localStorage.removeItem('channels');
         localStorage.removeItem('state');
 
-        const res = await fetch('http://localhost:5000/api/users/logout', {
+        const res = await fetch(
+            'https://student-online-community-backend-omega.vercel.app/api/users/logout',
+            {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
