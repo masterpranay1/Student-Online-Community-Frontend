@@ -1,8 +1,5 @@
 {
-  "redirects" : [
-    {
-      "source" : "/*",
-      "destination" : "/"
-    }
+  "rewrites": [
+    { "source": "/channel", "destination": "/" }
   ]
 }
