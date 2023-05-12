@@ -8,6 +8,7 @@ import AuthPage from './pages/AuthPage';
 import ChannelPage from './pages/ChannelPage';
 import NotFound from './pages/NotFound';
 import ChannelDashboard from './pages/ChannelDashboard';
+import UserProfile from './pages/UserProfile';
 
 const getInitialState = () => {
   const state = localStorage.getItem('state');
@@ -76,6 +77,7 @@ function App() {
             Admin Login
           </Link>
           </div>}/>
+          <Route path="/auth/profile" element={<UserProfile />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </LoginContext.Provider>

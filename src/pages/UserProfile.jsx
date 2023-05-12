@@ -2,16 +2,6 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-function ProfileImage() {
-    return (
-        <div className="flex justify-start items-center">
-            <div className="w-52 h-52 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex justify-center items-center">
-                <img src='' alt='' />
-            </div>
-        </div>
-    );
-}
-
 function ProfileHeader() {
     return (
         <div className="text-center mt-4">
@@ -60,20 +50,49 @@ function ChannelItem({ name, position }) {
 
 
 function UserProfile() {
+
+    const handleButtonClick = async () => {
+        localStorage.removeItem('isLogin');
+        localStorage.removeItem('role');
+        localStorage.removeItem('channels');
+        localStorage.removeItem('state');
+
+        const res = await fetch('http://localhost:5000/api/users/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'true'
+            },
+            credentials: 'include'
+        })
+
+        const data = await res.json();
+        console.log(data);
+        if(data.success) {
+            window.location.href = '/';
+        } else {
+            alert('Something went wrong');
+        }
+    }
+
     return (
-        <>
+        <div className='flex flex-col justify-center items-center'>
             <Navbar />
-            <div className="flex flex-row flex-wrap justify-around items-center my-[10rem]">
+            <div className="flex flex-col flex-wrap justify-around items-center min-h-[60vh] my-8">
                 <div className="flex flex-col justify-center items-center">
-                    <ProfileImage  />
                     <ProfileHeader />
                 </div>
                 <div className="flex flex-row justify-center items-center">
                     <ChannelList />
                 </div>
             </div>
+            <button className='btn btn-secondary btn-outline m-4 w-fit' 
+            onClick={handleButtonClick}
+            >
+                Logout
+            </button>
             <Footer />
-        </>
+        </div>
     );
 }
 
