@@ -26,7 +26,7 @@ const CreateChannel = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Access-Control-Allow-Origin': ''
+          'Access-Control-Allow-Origin': 'true'
         },
         body: JSON.stringify({
           channelId: id,
@@ -116,7 +116,7 @@ const Channels = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // 'Access-Control-Allow-Origin': ''
+          'Access-Control-Allow-Origin': 'true'
         },
         credentials: 'include',
       }
@@ -135,7 +135,7 @@ const Channels = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Origin': ''
+            'Access-Control-Allow-Origin': 'true'
           },
           credentials: 'include',
         }
@@ -157,7 +157,7 @@ const Channels = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Origin': ''
+            'Access-Control-Allow-Origin': 'true'
           },
           credentials: 'include',
         })
@@ -185,7 +185,7 @@ const Channels = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Access-Control-Allow-Origin': ''
+          'Access-Control-Allow-Origin': 'true'
         },
         body: JSON.stringify({
           channelId: channel.channelId

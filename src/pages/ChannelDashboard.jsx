@@ -31,7 +31,7 @@ const CreateGroup = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // 'Access-Control-Allow-Origin': ''
+            'Access-Control-Allow-Origin': 'true'
           },
           body: JSON.stringify({
             groupId: groupId,
@@ -230,7 +230,7 @@ const ChannelDashboard = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // 'Access-Control-Allow-Origin': ''
+          'Access-Control-Allow-Origin': 'true'
         },
         credentials: "include",
       }
@@ -252,7 +252,7 @@ const ChannelDashboard = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          // 'Access-Control-Allow-Origin': ''
+          'Access-Control-Allow-Origin': 'true'
         },
         credentials: "include",
       }

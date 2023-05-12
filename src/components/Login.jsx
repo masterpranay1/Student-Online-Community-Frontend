@@ -29,7 +29,7 @@ const AdminLogin = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Access-Control-Allow-Origin': ''
+                    'Access-Control-Allow-Origin': 'true'
                 },
                 body: JSON.stringify({
                     email: email,
@@ -116,7 +116,7 @@ const UserLogin = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Access-Control-Allow-Origin': ''
+                    'Access-Control-Allow-Origin': 'true'
                 },
                 body: JSON.stringify({
                     email: email,
