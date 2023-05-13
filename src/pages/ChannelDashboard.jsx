@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext, useRef } from "react";
 
 import LoginContext from "../contexts/LoginContext";
 import AccountIcon from "../assets/account.svg";
@@ -9,47 +9,58 @@ import Footer from "../components/Footer";
 
 import SendIcon from "../assets/send.png";
 
-const CreateGroup = () => {
+const CreateGroup = ({channelId}) => {
   const groupIdRef = useRef(null);
   const nameRef = useRef(null);
   const typeRef = useRef(null);
   const buttonRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const handleButtonClick = async (e) => {
     e.preventDefault();
-    buttonRef.current.classList.add("loading");
     const groupId = groupIdRef.current.value;
     const name = nameRef.current.value;
     const type = typeRef.current.value;
-    const buttonRef = useRef(null);
 
-    if (!groupId || !name || !type) return alert("Please enter all the fields");
-    const handleButtonClick = async (e) => {
-      const res = await fetch(
-        "https://student-online-community-backend-omega.vercel.app/api/admin/createGroup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            'Access-Control-Allow-Origin': 'true'
-          },
-          body: JSON.stringify({
-            groupId: groupId,
-            name: name,
-            type: type,
-          }),
-          credentials: "include",
+    console.log(type);
+    
+    buttonRef.current.classList.add("loading");
 
-        })
-      const data = await res.json();
-      console.log(data, res);
+    if (!groupId || !name || !type) {
+      buttonRef.current.classList.remove("loading");
+      return alert("Please enter all the fields");
     }
+    if(typeRef.current.selectedIndex == 0) {
+      buttonRef.current.classList.remove("loading");
+      return alert("Please select the type of the group");
+    }
+    const res = await fetch(
+      "https://student-online-community-backend-omega.vercel.app/api/admin/createGroup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': 'true'
+        },
+        body: JSON.stringify({
+          groupId: groupId,
+          name: name,
+          type: type,
+          channelId: channelId
+        }),
+        credentials: "include",
+
+      })
+    const data = await res.json();
     buttonRef.current.classList.remove("loading");
     if (res.status === 201) {
       alert("Group Created Successfully");
       groupIdRef.current.value = "";
       nameRef.current.value = "";
-      typeRef.current.value = "";
+      typeRef.current.selectedIndex = 0;
+
+      navigate(0);
     } else {
       alert("Invalid Credentials");
     }
@@ -64,9 +75,9 @@ const CreateGroup = () => {
 
           <div className="form-control w-fit mx-0">
             <label className="label w-fit">
-              <span className="label-text w-fit">Channel Id</span>
+              <span className="label-text w-fit">Group Id</span>
             </label>
-            <input type="text" placeholder="Enter the channel id" className="input input-bordered w-full max-w-xs" ref={idRef} />
+            <input type="text" placeholder="Enter the channel id" className="input input-bordered w-full max-w-xs" ref={groupIdRef} />
           </div>
 
           <div className="form-control w-fit">
@@ -77,17 +88,18 @@ const CreateGroup = () => {
           </div>
 
           <div className="form-control w-fit">
-            <label className="label w-fit">
-              <span className="label-text w-fit">Description</span>
-            </label>
-            <input type="text" placeholder="Here goes you channel description" className="input input-bordered w-full max-w-xs" ref={descriptionRef} />
+            <select className="select select-bordered w-full max-w-xs mt-4" ref={typeRef}>
+              <option value="Select the type">Select the type </option>
+              <option value="private">Private</option>
+              <option value="public">Public</option>
+            </select>
           </div>
 
           <div className="form-control mt-6 w-fit">
             <button className="btn btn-secondary px-8" ref={buttonRef} onClick={handleButtonClick}>Create Channel</button>
           </div>
           <div className="modal-action">
-            <label htmlFor="my-modal-6" className="btn">Close</label>
+            <label htmlFor="my-modal-3" className="btn">Close</label>
           </div>
         </div>
       </div>
@@ -95,7 +107,7 @@ const CreateGroup = () => {
   )
 }
 
-const GroupsTab = ({ groups }) => {
+const GroupsTab = ({ groups, channelId }) => {
   const { role } = useContext(LoginContext);
 
   return (
@@ -114,10 +126,12 @@ const GroupsTab = ({ groups }) => {
         {
           role === "admin" ? (
             <li className="bg-accent px-8 py-4 text-base-100 border-b">
-              <label htmlFor="my-modal-3" className="btn">Create Group</label>
+              <label htmlFor="my-modal-3" className="btn" >Create Group</label>
             </li>
           ) : null
         }
+
+        <CreateGroup channelId={channelId}/>
       </ul>
     </section>
   )
@@ -272,16 +286,8 @@ const ChannelDashboard = () => {
   }, [])
 
   useEffect(() => {
-    console.log(groups);
-  }, [groups])
-
-  useEffect(() => {
     getAllUsersOfAChannel()
   }, [])
-
-  useEffect(() => {
-    console.log(users);
-  }, [users])
 
   return (
     <>
@@ -291,8 +297,16 @@ const ChannelDashboard = () => {
           <div className="p-16 min-h-screen bg-primary">
             <h1 className="text-4xl text-secondary font-bold">Channel Dashboard</h1>
             <div className="h-[90vh] my-16 mx-auto flex flex-row gap-6">
-              <GroupsTab groups={groups} />
-              <ChatBox />
+              <GroupsTab groups={groups} channelId={channelId}/>
+              {
+                groups.length > 0 ? (
+                  <ChatBox groups={groups} />
+                ) : (
+                  <div className="w-full h-full flex justify-center items-center">
+                    <h1 className="text-4xl text-secondary font-bold">No Groups</h1>
+                  </div>
+                )
+              }
               <UsersTab users={users} />
             </div>
           </div>

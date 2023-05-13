@@ -11,6 +11,8 @@ const CreateChannel = () => {
   const urlRef = useRef(null);
   const buttonRef = useRef(null);
 
+  const navigate = useNavigate();
+
   const handleButtonClick = async (e) => {
     e.preventDefault();
     buttonRef.current.classList.add('loading');
@@ -19,7 +21,11 @@ const CreateChannel = () => {
     const description = descriptionRef.current.value;
     const url = urlRef.current.value;
 
-    if (!id || !name || !description || !url) return alert('Please enter all the fields')
+    if (!id || !name || !description || !url) {
+      alert('Please fill all the fields');
+      buttonRef.current.classList.remove('loading');
+      return;
+    }
     const res = await fetch(
       'https://student-online-community-backend-omega.vercel.app/api/admin/createChannel',
       {
@@ -46,6 +52,8 @@ const CreateChannel = () => {
       nameRef.current.value = '';
       descriptionRef.current.value = '';
       urlRef.current.value = '';
+
+      navigate(0)
     } else {
       alert('Invalid Credentials');
     }
