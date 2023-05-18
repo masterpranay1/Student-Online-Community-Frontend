@@ -9,7 +9,7 @@ const AdminLogin = () => {
 
     const navigate = useNavigate();
 
-    let { isLogin ,setIsLogin, setRole } = useContext(LoginContext);
+    let { isLogin ,setIsLogin, setRole, setUserId } = useContext(LoginContext);
 
     useEffect(() => {
         if (isLogin) navigate('/channels');
@@ -43,6 +43,7 @@ const AdminLogin = () => {
         if (res.status === 200) {
             setIsLogin(true);
             setRole('admin');
+            setUserId(data._id);
             navigate('/channels');
         } else {
             alert('Invalid Credentials');
@@ -96,7 +97,7 @@ const UserLogin = () => {
 
     const navigate = useNavigate();
 
-    let { isLogin ,setIsLogin, setRole } = useContext(LoginContext);
+    let { isLogin ,setIsLogin, setRole, setUserId } = useContext(LoginContext);
 
     useEffect(() => {
         if (isLogin) navigate('/channels');
@@ -131,6 +132,7 @@ const UserLogin = () => {
         if (res.status === 200) {
             setIsLogin(true);
             setRole('user');
+            setUserId(data._id)
             navigate('/channels');
         } else {
             alert('Invalid Credentials');

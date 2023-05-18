@@ -7,6 +7,8 @@ const LoginContext = createContext({
     setIsLogin: (isLogin) => {},
     role: '',
     setRole: (role) => {},
+    userId: '',
+    setUserId: (userId) => {},
 });
 
 export default LoginContext;

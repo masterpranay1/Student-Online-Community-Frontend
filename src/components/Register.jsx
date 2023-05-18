@@ -3,7 +3,7 @@ import LoginContext from '../contexts/LoginContext';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  let { setState, setIsLogin, setRole } = useContext(LoginContext);
+  let { setState, setIsLogin, setRole, setUserId } = useContext(LoginContext);
   useEffect(() => {
     setState('login');
   }, [setState]);
@@ -47,6 +47,7 @@ const Register = () => {
       alert('User registered successfully');
       setIsLogin(true);
       setRole('user');
+      setUserId(data._id);
       navigate('/channels');
     } else {
       alert(data.message);

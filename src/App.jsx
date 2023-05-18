@@ -30,10 +30,16 @@ const getInitialChannels = () => {
   return channels ? JSON.parse(channels) : []
 }
 
+const getInitialUserId = () => {
+  const userId = localStorage.getItem('userId');
+  return userId ? JSON.parse(userId) : ''
+}
+
 function App() {
   const [state, setState] = React.useState(getInitialState);
   const [isLogin, setIsLogin] = React.useState(getInitialIsLogin);
   const [role, setRole] = React.useState(getInitialRole);
+  const [userId, setUserId] = React.useState(getInitialUserId);
 
   const [channelData, setChannelData] = React.useState(getInitialChannels);
 
@@ -55,7 +61,7 @@ function App() {
 
   return (
     <>
-      <LoginContext.Provider value={{ state, setState, isLogin, setIsLogin, role, setRole }}>
+      <LoginContext.Provider value={{ state, setState, isLogin, setIsLogin, role, setRole, userId, setUserId }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/auth/*" element={<AuthPage />} />
@@ -77,7 +83,7 @@ function App() {
             Admin Login
           </Link>
           </div>}/> */}
-          <Route path="/auth/profile" element={<UserProfile />}/>
+          <Route path="/auth/profile" element={<UserProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </LoginContext.Provider>
