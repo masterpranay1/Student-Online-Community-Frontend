@@ -72,11 +72,11 @@ function App() {
           />
           {/* <Route path="/createChannel" element={}/> */}
           <Route path="/channelDashboard/:channelId" element={<ChannelDashboard />} />
-          <Route path="/admin" element={<div>
+          {/* <Route path="/admin" element={<div>
             <Link to="/auth/admin/login" className="btn btn-secondary btn-outline">
             Admin Login
           </Link>
-          </div>}/>
+          </div>}/> */}
           <Route path="/auth/profile" element={<UserProfile />}/>
           <Route path="*" element={<NotFound />} />
         </Routes>

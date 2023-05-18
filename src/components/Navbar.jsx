@@ -55,7 +55,7 @@ const Navbar = () => {
             ''
           )}
 
-          <Link to="/admin" className="btn btn-secondary btn-outline">
+          <Link to="/auth/admin/login" className="btn btn-secondary btn-outline ml-4">
             Admin
           </Link>
         </div>
