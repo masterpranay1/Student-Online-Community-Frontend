@@ -55,9 +55,19 @@ const Navbar = () => {
             ''
           )}
 
-          <Link to="/auth/admin/login" className="btn btn-secondary btn-outline ml-4">
+          {/* {
+            isLogin ? (
+              <Link to="/auth/logout" className="btn btn-secondary btn-outline ml-4">
+                Logout
+              </Link>
+            ) : (
+              ''
+            )
+          } */}
+
+          {!isLogin ? (<Link to="/auth/admin/login" className="btn btn-secondary btn-outline ml-4">
             Admin
-          </Link>
+          </Link>) : ('')}
         </div>
       </div>
     </>
