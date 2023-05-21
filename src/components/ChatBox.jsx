@@ -7,7 +7,10 @@ import GroupContext from "../contexts/GroupContext";
 import LoginContext from "../contexts/LoginContext";
 
 import { io, Manager } from "socket.io-client";
-const socket = io('https://student-online-community-backend-omega.vercel.app')
+const socket = io("https://student-online-community-backend-omega.vercel.app", {
+  path: "/socket.io",
+  autoConnect: false,
+})
 
 const ChatUser = ({ username, message }) => {
   return (
@@ -126,10 +129,13 @@ const ChatBox = ({ groups, channelId }) => {
         setIsChatsUpdated(prev => !prev)
       }
     }
-
+    socket.connect()
     socket.on('chat', onChat)
 
-    return () => socket.off('chat', onChat)
+    return () => {
+      socket.off('chat', onChat)
+      socket.disconnect()
+    }
   }, [])
 
   // useEffect(() => {
