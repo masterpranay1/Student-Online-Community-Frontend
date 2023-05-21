@@ -31,7 +31,7 @@ const getInitialChannels = () => {
 }
 
 const getInitialUserId = () => {
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage['userId'];
   return userId ? JSON.parse(userId) : ''
 }
 
@@ -59,6 +59,10 @@ function App() {
     localStorage.setItem('channels', JSON.stringify(channelData));
   }, [channelData])
 
+  useEffect(() => {
+    localStorage.setItem('userId', JSON.stringify(userId))
+  }, [userId])
+
   return (
     <>
       <LoginContext.Provider value={{ state, setState, isLogin, setIsLogin, role, setRole, userId, setUserId }}>
@@ -76,13 +80,7 @@ function App() {
               </ChannelContext.Provider>
             }
           />
-          {/* <Route path="/createChannel" element={}/> */}
           <Route path="/channelDashboard/:channelId" element={<ChannelDashboard />} />
-          {/* <Route path="/admin" element={<div>
-            <Link to="/auth/admin/login" className="btn btn-secondary btn-outline">
-            Admin Login
-          </Link>
-          </div>}/> */}
           <Route path="/auth/profile" element={<UserProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

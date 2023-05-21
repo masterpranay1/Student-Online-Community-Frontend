@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginContext from '../contexts/LoginContext';
 import GroupContext from '../contexts/GroupContext';
@@ -103,7 +103,7 @@ const CreateGroup = ({ channelId }) => {
 
 const GroupsTab = ({ groups, channelId }) => {
   const { role } = useContext(LoginContext);
-  const { activeIndex, setActiveIndex } = useContext(GroupContext)
+  const { activeIndex, setActiveIndex, activeGroupId, setActiveGroupId } = useContext(GroupContext)
 
   return (
     <section>
@@ -116,7 +116,10 @@ const GroupsTab = ({ groups, channelId }) => {
               <li
                 key={index}
                 className={`px-8 py-4 text-accent text-center border-b cursor-pointer ${activeIndex == index ? 'bg-neutral text-base-100' : 'bg-base-100'}`}
-                onClick={() => { setActiveIndex(index) }}
+                onClick={() => { 
+                  setActiveIndex(index)
+                  setActiveGroupId(group.groupId)
+                }}
               >{group.name}</li>
             )
           })

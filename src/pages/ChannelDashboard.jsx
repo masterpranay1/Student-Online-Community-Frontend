@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext, useRef, useCallback } from "react";
 
 import LoginContext from "../contexts/LoginContext";
 import GroupContext from "../contexts/GroupContext";
@@ -66,7 +66,6 @@ const ChannelDashboard = () => {
       console.log(data.error);
       return;
     }
-    console.log(data);
     setGroups(data);
   }
 
@@ -93,15 +92,19 @@ const ChannelDashboard = () => {
   }
 
   useEffect(() => {
-
-    return () => {
-      localStorage.setItem('active-group-index', JSON.stringify(0))
+    if (groups.length > 0) {
+      setActiveIndex(0);
+      setActiveGroupId(groups[0].groupId);
     }
-  }, [])
+  }, [groups])
 
   useEffect(() => {
     localStorage.setItem('active-group-index', JSON.stringify(activeIndex));
   }, [activeIndex])
+
+  useEffect(() => {
+    localStorage.setItem('active-group-id', JSON.stringify(activeGroupId));
+  }, [activeGroupId])
 
   useEffect(() => {
     getAllGroups()
@@ -118,12 +121,12 @@ const ChannelDashboard = () => {
         isLogin ? (
           <div className="p-16 min-h-screen bg-primary">
             <h1 className="text-4xl text-secondary font-bold">Channel Dashboard</h1>
-            <GroupContext.Provider value={{activeIndex, setActiveIndex, activeGroupId, setActiveGroupId}}>
+            <GroupContext.Provider value={{ activeIndex, setActiveIndex, activeGroupId, setActiveGroupId }}>
               <div className="h-[90vh] my-16 mx-auto flex flex-row gap-6">
                 <GroupsTab groups={groups} channelId={channelId} />
                 {
                   groups.length > 0 ? (
-                    <ChatBox groups={groups} />
+                    <ChatBox groups={groups} channelId={channelId} />
                   ) : (
                     <div className="w-full h-full flex justify-center items-center">
                       <h1 className="text-4xl text-secondary font-bold">No Groups</h1>

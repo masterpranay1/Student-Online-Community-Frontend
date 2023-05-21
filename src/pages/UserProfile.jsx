@@ -56,6 +56,9 @@ function UserProfile() {
         localStorage.removeItem('role');
         localStorage.removeItem('channels');
         localStorage.removeItem('state');
+        localStorage.removeItem('active-group-index');
+        localStorage.removeItem('active-group-id');
+        
 
         const res = await fetch(
             'https://student-online-community-backend-omega.vercel.app/api/users/logout',

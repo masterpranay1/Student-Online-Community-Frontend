@@ -1,10 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 
 import SendIcon from "../assets/send.png";
 import AccountIcon from "../assets/account.svg";
 
 import GroupContext from "../contexts/GroupContext";
 import LoginContext from "../contexts/LoginContext";
+
+import { io, Manager } from "socket.io-client";
+const socket = io('https://student-online-community-backend-omega.vercel.app')
 
 const ChatUser = ({ username, message }) => {
   return (
@@ -44,26 +47,58 @@ const ChatOther = ({ username, message }) => {
   </div>)
 }
 
-const SendMessageBox = () => {
+const SendMessageBox = ({ setIsChatsUpdated, channelId }) => {
+
+  const { activeGroupId } = useContext(GroupContext)
+  const { userId } = useContext(LoginContext)
+
+  const inputRef = useRef(null)
+
+  const handleButtonOnClick = () => {
+
+    socket.emit('chat', {
+      message: inputRef.current.value,
+      group: activeGroupId,
+      channel: channelId,
+      sender: userId
+    }, (data) => {
+
+      if (data.status == 'error') {
+        alert('Error Sending Message')
+        return;
+      } else {
+        inputRef.current.value = ''
+        setIsChatsUpdated(prev => !prev)
+      }
+    })
+  }
+
   return (
-    <div className="sendMessageBox w-[100%] flex border border-secondary-content bg-base-100">
-        <input type="text" placeholder="Type here" className="input w-full" />
-        <button className="h-12 w-12 border-l">
-          <img src={SendIcon} className="h-[50%] w-[50%] m-auto" alt="sendicon" />
-        </button>
-      </div>
+    <div className="sendMessageBox mt-auto w-[100%] flex border border-secondary-content bg-base-100">
+      <input type="text" placeholder="Type here" className="input w-full" ref={inputRef} />
+      <button className="h-12 w-12 border-l" onClick={handleButtonOnClick}>
+        <img src={SendIcon} className="h-[50%] w-[50%] m-auto" alt="sendicon" />
+      </button>
+    </div>
   )
 }
 
-const ChatBox = () => {
+const ChatBox = ({ groups, channelId }) => {
 
   const { activeGroupId } = useContext(GroupContext)
   const { userId } = useContext(LoginContext)
   const [chats, setChats] = useState([])
+  const [isChatsUpdated, setIsChatsUpdated] = useState(true)
+  const chatContainer = useRef(null)
+
+  useEffect(() => {
+    chatContainer.current.scrollTop = chatContainer.current.scrollHeight;
+  }, [chats])
 
   const getAllChats = async () => {
+    if (!activeGroupId) return;
     const res = await fetch(
-      `http://localhost:5173/api/group/getAllChats/${activeGroupId}`,
+      'https://student-online-community-backend-omega.vercel.app/api/group/getAllChats/' + activeGroupId,
       {
         method: 'GET',
         headers: {
@@ -74,7 +109,6 @@ const ChatBox = () => {
       }
     )
     const data = await res.json();
-    console.log(data);
     if (data.status == 'ok') {
       setChats(data.chats);
     } else {
@@ -84,22 +118,37 @@ const ChatBox = () => {
 
   useEffect(() => {
     getAllChats();
+  }, [isChatsUpdated, activeGroupId])
+
+  useEffect(() => {
+    function onChat(data) {
+      if (data.group == activeGroupId) {
+        setIsChatsUpdated(prev => !prev)
+      }
+    }
+
+    socket.on('chat', onChat)
+
+    return () => socket.off('chat', onChat)
   }, [])
 
+  // useEffect(() => {
+  //   console.log(chats)
+  // }, [chats])
+
   return (
-    <section className="w-full h-[100%] flex flex-col bg-base-100">
-      <div className="w-[100%] h-[100%] p-8 border border-gray-500 border-solid flex flex-col justify-end">
+    <section className="w-full flex flex-col bg-base-100">
+      <div className="w-[100%] h-full flex-1 border border-gray-500 border-solid flex flex-col justify-end">
+        <div ref={chatContainer} className="h-full p-8 overflow-y-auto">
         {
           chats && chats.map((chat, index) => {
             return (
-              <div key={index}>
-                {
-                  chat.senderId == userId ?
-                    <ChatUser username={chat.senderName} message={chat.message} />
-                    :
-                    <ChatOther username={chat.senderName} message={chat.message} />
-                }
-              </div>
+
+              chat.sender == userId ?
+                <ChatUser key={index} username={chat.senderName} message={chat.message} />
+                :
+                <ChatOther key={index} username={chat.senderName} message={chat.message} />
+
             )
           }
           )
@@ -109,8 +158,9 @@ const ChatBox = () => {
           chats.length == 0 &&
           <p className="text-2xl text-center font-bold text-secondary">No Chat</p>
         }
+        </div>
       </div>
-      <SendMessageBox />
+      <SendMessageBox setIsChatsUpdated={setIsChatsUpdated} channelId={channelId} />
     </section>
   )
 }
