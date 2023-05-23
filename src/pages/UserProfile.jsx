@@ -61,7 +61,7 @@ function UserProfile() {
         
 
         const res = await fetch(
-            'https://student-online-community-backend-omega.vercel.app/api/users/logout',
+            'https://student-online-community.onrender.com/api/users/logout',
             {
             method: 'POST',
             headers: {

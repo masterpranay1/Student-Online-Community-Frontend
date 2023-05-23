@@ -27,7 +27,7 @@ const CreateChannel = () => {
       return;
     }
     const res = await fetch(
-      'https://student-online-community-backend-omega.vercel.app/api/admin/createChannel',
+      'https://student-online-community.onrender.com/api/admin/createChannel',
       {
         method: 'POST',
         headers: {
@@ -119,7 +119,7 @@ const Channels = () => {
 
   const fetchChannelsId = useCallback(async () => {
     const response = await fetch(
-      'https://student-online-community-backend-omega.vercel.app/api/channels/getAllChannels',
+      'https://student-online-community.onrender.com/api/channels/getAllChannels',
       {
         method: 'GET',
         headers: {
@@ -139,7 +139,7 @@ const Channels = () => {
   const fetchChannelsData = useCallback(async () => {
     channelsId.forEach(async (channelId) => {
       const response = await fetch(
-        `https://student-online-community-backend-omega.vercel.app/api/channels/getChannelById/${channelId}`,
+        `https://student-online-community.onrender.com/api/channels/getChannelById/${channelId}`,
         {
           method: 'GET',
           headers: {
@@ -161,7 +161,7 @@ const Channels = () => {
     };
     if (role === 'user') {
       const res = await fetch(
-        `https://student-online-community-backend-omega.vercel.app/api/users/isUserInChannel/${channelId}`,
+        `https://student-online-community.onrender.com/api/users/isUserInChannel/${channelId}`,
         {
           method: 'GET',
           headers: {
@@ -190,7 +190,7 @@ const Channels = () => {
   const handleJoinChannel = useCallback(async (channel) => {
     console.log(channel)
     const res = await fetch(
-      `https://student-online-community-backend-omega.vercel.app/api/channels/joinChannel`,
+      `https://student-online-community.onrender.com/api/channels/joinChannel`,
       {
         method: 'POST',
         headers: {

@@ -24,7 +24,7 @@ const AdminLogin = () => {
 
         if (!email || !password) return alert('Please enter all the fields')
         const res = await fetch(
-            'https://student-online-community-backend-omega.vercel.app/api/admin/login',
+            'https://student-online-community.onrender.com/api/admin/login',
             {
                 method: 'POST',
                 headers: {
@@ -112,7 +112,7 @@ const UserLogin = () => {
 
         if (!email || !password) return alert('Please enter all the fields')
         const res = await fetch(
-            'https://student-online-community-backend-omega.vercel.app/api/users/login',
+            'https://student-online-community.onrender.com/api/users/login',
             {
                 method: 'POST',
                 headers: {

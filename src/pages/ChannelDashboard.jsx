@@ -50,7 +50,7 @@ const ChannelDashboard = () => {
 
   const getAllGroups = async () => {
     const res = await fetch(
-      `https://student-online-community-backend-omega.vercel.app/api/channels/getAllGroups/${channelId}`,
+      `https://student-online-community.onrender.com/api/channels/getAllGroups/${channelId}`,
       {
         method: 'GET',
         headers: {
@@ -71,7 +71,7 @@ const ChannelDashboard = () => {
 
   const getAllUsersOfAChannel = async () => {
     const res = await fetch(
-      `https://student-online-community-backend-omega.vercel.app/api/channels/getUsersOfChannel/${channelId}`,
+      `https://student-online-community.onrender.com/api/channels/getUsersOfChannel/${channelId}`,
       {
         method: 'GET',
         headers: {

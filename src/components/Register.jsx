@@ -26,7 +26,7 @@ const Register = () => {
       return alert('Please enter all the fields');
     }
     const res = await fetch(
-      'https://student-online-community-backend-omega.vercel.app/api/users/register',
+      'https://student-online-community.onrender.com/api/users/register',
       {
         method: 'POST',
         headers: {

@@ -7,7 +7,7 @@ import GroupContext from "../contexts/GroupContext";
 import LoginContext from "../contexts/LoginContext";
 
 import { io, Manager } from "socket.io-client";
-const socket = io("https://student-online-community-backend-omega.vercel.app", {
+const socket = io("https://student-online-community.onrender.com", {
   path: "/socket.io",
   autoConnect: false,
 })
@@ -101,7 +101,7 @@ const ChatBox = ({ groups, channelId }) => {
   const getAllChats = async () => {
     if (!activeGroupId) return;
     const res = await fetch(
-      'https://student-online-community-backend-omega.vercel.app/api/group/getAllChats/' + activeGroupId,
+      'https://student-online-community.onrender.com/api/group/getAllChats/' + activeGroupId,
       {
         method: 'GET',
         headers: {

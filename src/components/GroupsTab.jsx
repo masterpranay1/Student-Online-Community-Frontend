@@ -30,7 +30,7 @@ const CreateGroup = ({ channelId }) => {
       return alert("Please select the type of the group");
     }
     const res = await fetch(
-      "https://student-online-community-backend-omega.vercel.app/api/admin/createGroup",
+      "https://student-online-community.onrender.com/api/admin/createGroup",
       {
         method: "POST",
         headers: {
