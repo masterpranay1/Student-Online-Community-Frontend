@@ -54,11 +54,14 @@ const SendMessageBox = ({ setIsChatsUpdated, channelId }) => {
 
   const { activeGroupId } = useContext(GroupContext)
   const { userId } = useContext(LoginContext)
+  const [sendButtonClicked, setIsSendButtonClicked] = useState(false)
 
   const inputRef = useRef(null)
 
   const handleButtonOnClick = () => {
+    if(!inputRef.current.value || sendButtonClicked) return;
 
+    setIsSendButtonClicked(true)
     socket.emit('chat', {
       message: inputRef.current.value,
       group: activeGroupId,
@@ -73,8 +76,24 @@ const SendMessageBox = ({ setIsChatsUpdated, channelId }) => {
         inputRef.current.value = ''
         setIsChatsUpdated(prev => !prev)
       }
+
+      setIsSendButtonClicked(false)
     })
   }
+
+  useEffect(() => {
+    const keyDownHandler = (e) => {
+      if (e.key == 'Enter') {
+        handleButtonOnClick()
+      }
+    }
+
+    document.addEventListener('keydown', keyDownHandler)
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler)
+    }
+  }, [])
 
   return (
     <div className="sendMessageBox mt-auto w-[100%] flex border border-secondary-content bg-base-100">
@@ -125,7 +144,6 @@ const ChatBox = ({ groups, channelId }) => {
 
   useEffect(() => {
     function onChat(data) {
-      console.log(data)
       if (data.group == activeGroupId) {
         setIsChatsUpdated(prev => !prev)
       }
