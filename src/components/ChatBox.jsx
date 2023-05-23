@@ -125,6 +125,7 @@ const ChatBox = ({ groups, channelId }) => {
 
   useEffect(() => {
     function onChat(data) {
+      console.log(data)
       if (data.group == activeGroupId) {
         setIsChatsUpdated(prev => !prev)
       }
@@ -136,7 +137,7 @@ const ChatBox = ({ groups, channelId }) => {
       socket.off('chat', onChat)
       socket.disconnect()
     }
-  }, [])
+  }, [activeGroupId])
 
   // useEffect(() => {
   //   console.log(chats)
