@@ -1,25 +1,32 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-function ProfileHeader() {
+import LoginContext from '../contexts/LoginContext';
+
+function ProfileHeader({ name, email }) {
+
+    name = name || 'User'
+    email = email || 'email@here.com'
     return (
         <div className="text-center mt-4">
-            <h1 className="text-2xl font-bold">Elon Musk</h1>
-            <p className="text-gray-600">elon@spacex.com</p>
+            <h1 className="text-2xl font-bold">{name}</h1>
+            <p className="text-gray-600">{email}</p>
         </div>
     );
 }
 
-function ChannelList() {
-    const dummyChannels = [
-        { id: 1, name: 'CU', position: 'Member' },
-        { id: 2, name: 'IEEE', position: 'Member' },
-        { id: 3, name: 'CSE', position: 'Moderator' },
-        { id: 4, name: 'MBA', position: 'Member' }
+function ChannelList({ channels }) {
+
+    channels = channels || [
+        {
+            id: '1',
+            name: 'Channel 1',
+            position: 'Admin'
+        },
     ];
 
-    const channelList = dummyChannels.map(channel => (
+    const channelList = channels.map(channel => (
         <ChannelItem key={channel.id} name={channel.name} position={channel.position} />
     ));
 
@@ -58,46 +65,85 @@ function UserProfile() {
         localStorage.removeItem('state');
         localStorage.removeItem('active-group-index');
         localStorage.removeItem('active-group-id');
-        
+
 
         const res = await fetch(
             'https://student-online-community.onrender.com/api/users/logout',
             {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'true'
-            },
-            credentials: 'include'
-        })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'true'
+                },
+                credentials: 'include'
+            })
 
         const data = await res.json();
         console.log(data);
-        if(data.success) {
+        if (data.success) {
             window.location.href = '/';
         } else {
             alert('Something went wrong');
         }
     }
 
+    const { userId } = useContext(LoginContext);
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [channels, setChannels] = useState([]);
+
+    useEffect(() => {
+        const getUserById = async () => {
+            const res = await fetch(
+                `https://student-online-community.onrender.com/api/users/getUserById/${userId}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': 'true'
+                    },
+                    credentials: 'include'
+                }
+            )
+
+            const data = await res.json();
+            if (res.ok) {
+                setName(data.name);
+                setEmail(data.email);
+                setChannels(data.channels.map(channel => {
+                    return {
+                        id: channel.channelId._id,
+                        name: channel.channelId.name,
+                        position: channel.role
+                    }
+                }));
+            }
+        }
+
+        getUserById();
+    }, [userId])
+
     return (
-        <div className='flex flex-col justify-center items-center'>
+        <>
             <Navbar />
-            <div className="flex flex-col flex-wrap justify-around items-center min-h-[60vh] my-8">
-                <div className="flex flex-col justify-center items-center">
-                    <ProfileHeader />
+            <div className='flex flex-col justify-center items-center'>
+                <div className="flex flex-col flex-wrap justify-around items-center min-h-[60vh] my-8">
+                    <div className="flex flex-col justify-center items-center">
+                        <ProfileHeader name={name} email={email}/>
+                    </div>
+                    <div className="flex flex-row justify-center items-center">
+                        <ChannelList channels={channels}/>
+                    </div>
                 </div>
-                <div className="flex flex-row justify-center items-center">
-                    <ChannelList />
-                </div>
+                <button className='btn btn-secondary btn-outline m-4 w-fit'
+                    onClick={handleButtonClick}
+                >
+                    Logout
+                </button>
+                <Footer />
             </div>
-            <button className='btn btn-secondary btn-outline m-4 w-fit' 
-            onClick={handleButtonClick}
-            >
-                Logout
-            </button>
-            <Footer />
-        </div>
+        </>
     );
 }
 
