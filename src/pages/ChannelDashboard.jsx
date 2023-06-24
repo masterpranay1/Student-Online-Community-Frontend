@@ -114,9 +114,19 @@ const ChannelDashboard = () => {
     getAllUsersOfAChannel()
   }, [])
 
+  const navigate = useNavigate();
+  const navigateToAllChannels = useCallback(() => {
+    navigate('/channels');
+  })
+
   return (
     <>
       <Navbar />
+      <div className='p-4 md:p-8 text-2xl font-bold text-secondary cursor-pointer uppercase'
+        onClick={navigateToAllChannels}
+      >
+        All Channels
+      </div>
       {
         isLogin ? (
           <div className="p-16 min-h-screen bg-primary">

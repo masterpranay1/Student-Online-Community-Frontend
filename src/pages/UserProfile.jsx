@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import LoginContext from '../contexts/LoginContext';
+import { useNavigate  } from 'react-router-dom';
 
 function ProfileHeader({ name, email }) {
 
@@ -86,6 +87,10 @@ function UserProfile() {
             alert('Something went wrong');
         }
     }
+    const navigate = useNavigate();
+    const navigateToAllChannels = () => {
+        navigate('/channels');
+    }
 
     const { userId } = useContext(LoginContext);
 
@@ -127,13 +132,18 @@ function UserProfile() {
     return (
         <>
             <Navbar />
+            <div className='p-4 md:p-8 text-2xl font-bold text-secondary cursor-pointer uppercase'
+                onClick={navigateToAllChannels}
+            >
+                All Channels
+            </div>
             <div className='flex flex-col justify-center items-center'>
                 <div className="flex flex-col flex-wrap justify-around items-center min-h-[60vh] my-8">
                     <div className="flex flex-col justify-center items-center">
-                        <ProfileHeader name={name} email={email}/>
+                        <ProfileHeader name={name} email={email} />
                     </div>
                     <div className="flex flex-row justify-center items-center">
-                        <ChannelList channels={channels}/>
+                        <ChannelList channels={channels} />
                     </div>
                 </div>
                 <button className='btn btn-secondary btn-outline m-4 w-fit'
