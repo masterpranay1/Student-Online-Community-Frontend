@@ -2,6 +2,43 @@ import { useContext, useEffect, useRef } from 'react';
 import LoginContext from '../contexts/LoginContext';
 import { useNavigate } from 'react-router-dom';
 
+export const FormInput = ({ label, type, placeholder, refElement }) => {
+    return (
+        <div className="form-control">
+            <label className="label">
+                <span className="label-text">{label}</span>
+            </label>
+            <input
+                type={type}
+                placeholder={placeholder}
+                className="input input-bordered"
+                ref={refElement}
+            />
+        </div>
+    );
+}
+
+export const FormBody = ({ emailRef, passwordRef, buttonRef, handleButtonClick }) => {
+    return (
+        <div className="card max-w-sm shadow-2xl bg-base-100 p-4 md:p-8 gap-4 mx-auto">
+            <FormInput label="Email" type="text" placeholder="Email" refElement={emailRef} />
+            <FormInput label="Password" type="password" placeholder="Password" refElement={passwordRef} />
+            <div className="form-control mt-6">
+                <button className="btn btn-secondary" ref={buttonRef} onClick={handleButtonClick}>Login</button>
+            </div>
+        </div>
+    )
+}
+
+export const FormHeader = ({ title, description }) => {
+    return (
+        <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-secondary">{title}</h1>
+            <p className="py-6">{description}</p>
+        </div>
+    )
+}
+
 const AdminLogin = () => {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -9,7 +46,7 @@ const AdminLogin = () => {
 
     const navigate = useNavigate();
 
-    let { isLogin ,setIsLogin, setRole, setUserId } = useContext(LoginContext);
+    let { isLogin, setIsLogin, setRole, setUserId } = useContext(LoginContext);
 
     useEffect(() => {
         if (isLogin) navigate('/channels');
@@ -52,39 +89,8 @@ const AdminLogin = () => {
     return (
         <div className="hero min-h-screen bg-primary py-[2rem] pb-[4rem] text-neutral">
             <div className="hero-content flex-col max-w-2xl">
-                <div className="text-center ">
-                    <h1 className="text-5xl font-bold text-secondary">Login as Admin!</h1>
-                    <p className="py-6">Admin Login Page.</p>
-                </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <div className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="Email"
-                                className="input input-bordered"
-                                ref={emailRef}
-                            />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input
-                                type="password"
-                                placeholder="password"
-                                className="input input-bordered"
-                                ref={passwordRef}
-                            />
-                        </div>
-                        <div className="form-control mt-6">
-                            <button className="btn btn-secondary" ref={buttonRef} onClick={handleButtonClick}>Login</button>
-                        </div>
-                    </div>
-                </div>
+                <FormHeader title="Admin Login" description="Admin Login Page." />
+                <FormBody emailRef={emailRef} passwordRef={passwordRef} buttonRef={buttonRef} handleButtonClick={handleButtonClick} />
             </div>
         </div>
     );
@@ -97,7 +103,7 @@ const UserLogin = () => {
 
     const navigate = useNavigate();
 
-    let { isLogin ,setIsLogin, setRole, setUserId } = useContext(LoginContext);
+    let { isLogin, setIsLogin, setRole, setUserId } = useContext(LoginContext);
 
     useEffect(() => {
         if (isLogin) navigate('/channels');
@@ -139,45 +145,10 @@ const UserLogin = () => {
         }
     };
     return (
-        <div className="hero min-h-screen bg-primary py-[2rem] pb-[4rem] text-neutral">
-            <div className="hero-content flex-col max-w-2xl">
-                <div className="text-center ">
-                    <h1 className="text-5xl font-bold text-secondary">
-                        Login to your account!
-                    </h1>
-                    <p className="py-6">User Login Page.</p>
-                </div>
-                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <div className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="Email"
-                                className="input input-bordered"
-                                ref={emailRef}
-                            />
-                        </div>
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input
-                                type="password"
-                                placeholder="password"
-                                className="input input-bordered"
-                                ref={passwordRef}
-                            />
-                        </div>
-                        <div className="form-control mt-6">
-                            <button ref={buttonRef} className="btn btn-secondary" onClick={handleButtonClick}>
-                                Login
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <div className="hero bg-primary min-h-screen text-neutral p-1">
+            <div className="max-w-2xl">
+                <FormHeader title="Login to your account" description="User Login Page." />
+                <FormBody emailRef={emailRef} passwordRef={passwordRef} buttonRef={buttonRef} handleButtonClick={handleButtonClick} />
             </div>
         </div>
     );

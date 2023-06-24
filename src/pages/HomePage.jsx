@@ -12,7 +12,7 @@ function HomePage() {
     setState('login');
   }, [setState]);
   return (
-    <div>
+    <div className='w-full min-h-screen'>
       <Navbar />
       <Hero />
       <Features />
