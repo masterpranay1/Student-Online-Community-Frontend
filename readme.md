@@ -2,7 +2,7 @@
 
 <p align="center"> 
   <img src="https://forthebadge.com/images/badges/built-with-love.svg" alt="built with love"/>
-  <img src="./public/react.svg" alt="react"/>
+  <img src="/public/react.svg" alt="react"/>
 </p>
 
 Welcome to the Student Online Community! This website is designed to bring students together in a collaborative and engaging online environment. 
@@ -64,27 +64,27 @@ Welcome to the Student Online Community! This website is designed to bring stude
 
 ### Home Page
 
-![Home Page](./public/Hompage.png)
+![Home Page](/public/Hompage.png)
 
 ### Login Page
 
-![Login Page](./public/Login.png)
+![Login Page](/public/Login.png)
 
 ### Profile Page
 
-![Profile Page](./public/Profile.png)
+![Profile Page](/public/Profile.png)
 
 ### Channel Page
 
-![Channel Page](./public/Channels.png)
+![Channel Page](/public/Channels.png)
 
 ### Chat Room
 
-![Chat Room](./public/Chatbox.png)
+![Chat Room](/public/Chatbox.png)
 
 ### Admin Create Channel
 
-![Admin Create Channel](./public/Admin-Create-Channel.png)
+![Admin Create Channel](/public/Admin-Create-Channel.png)
 
 ## Author
 
